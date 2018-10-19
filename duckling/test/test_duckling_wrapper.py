@@ -214,11 +214,9 @@ def test_parse_volume(duckling_wrapper):
     assert 2.0 == result[0][u'value'][u'value']
     assert isinstance(result[0][u'value'][u'value'], float)
     assert u'litre' == result[0][u'value'][u'unit']
-    assert result[0][u'value'][u'latent'] is False
 
     result2 = duckling_wrapper.parse_volume(
         u'You should drink 2 something everyday')
-    assert result2[0][u'value'][u'latent'] is True
 
 
 def test_parse_volumes(duckling_wrapper):
@@ -333,7 +331,7 @@ def test_parse(duckling_wrapper):
                 Dim.TEMPERATURE):
             assert 20 == result[0][u'value'][u'value']
             assert result[0][u'value'].get(u'unit', None) is None
-            assert result[0][u'value'].get(u'latent', True) is True
+            assert result[0].get(u'latent', True) is True
         if entry[u'dim'] == Dim.TIME and entry[u'text'] == u'today':
             assert date.today() == parser.parse(
                 entry[u'value'][u'value']).date()

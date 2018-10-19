@@ -24,6 +24,7 @@ class DucklingWrapper(object):
                  jvm_started=False,
                  parse_datetime=False,
                  language=Language.ENGLISH,
+                 languages_to_load = [],
                  minimum_heap_size='128m',
                  maximum_heap_size='2048m'):
         super(DucklingWrapper, self).__init__()
@@ -33,7 +34,7 @@ class DucklingWrapper(object):
             parse_datetime=parse_datetime,
             minimum_heap_size=minimum_heap_size,
             maximum_heap_size=maximum_heap_size)
-        self.duckling.load()
+        self.duckling.load([Language.convert_to_duckling_language_id(l) for l in languages_to_load])
         self._dims = {
             Dim.TIME:           self._parse_time,
             Dim.TEMPERATURE:    self._parse_number_with_unit,
@@ -78,6 +79,8 @@ class DucklingWrapper(object):
                 u'value': duckling_result_entry[u'value'].get(u'value', None)
             }
         }
+        if u'latent' in duckling_result_entry:
+            result_entry[u'latent'] = duckling_result_entry[u'latent']
         if u'grain' in duckling_result_entry[u'value']:
             result_entry[u'value'][u'grain'] = duckling_result_entry[u'value'].get(u'grain', None)
         return result_entry
@@ -126,9 +129,7 @@ class DucklingWrapper(object):
         result_entry = self._parse_basic_info(duckling_result_entry)
         result_entry[u'value'].update({
             u'unit': duckling_result_entry[u'value'][u'unit']
-            if u'unit' in duckling_result_entry[u'value'] else None,
-            u'latent': duckling_result_entry[u'latent']
-            if u'latent' in duckling_result_entry else False
+            if u'unit' in duckling_result_entry[u'value'] else None
         })
         return result_entry
 
@@ -222,8 +223,8 @@ class DucklingWrapper(object):
                   "dim":"volume",
                   "end":17,
                   "start":11,
+                  "latent":true,
                   "value":{
-                     "latent":true,
                      "unit":null,
                      "value":20.0
                   },
@@ -443,8 +444,8 @@ class DucklingWrapper(object):
                   "dim":"volume",
                   "end":18,
                   "start":12,
+                  "latent":false,
                   "value":{
-                     "latent":false,
                      "unit":"millilitre",
                      "value":3785.0
                   },
@@ -454,8 +455,8 @@ class DucklingWrapper(object):
                   "dim":"volume",
                   "end":8,
                   "start":0,
+                  "latent":false,
                   "value":{
-                     "latent":false,
                      "unit":"gallon",
                      "value":1.0
                   },

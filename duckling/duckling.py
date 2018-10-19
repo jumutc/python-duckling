@@ -2,6 +2,7 @@ import os
 import imp
 import jpype
 import socket
+import logging
 import threading
 from six import string_types
 from distutils.util import strtobool
@@ -158,7 +159,7 @@ class Duckling(object):
             duckling_result = duckling_parse.invoke(
                 language, input_str, self.clojure.read(filter_str))
 
-        print('Duckling: %s' % str(duckling_result))
+        logging.info('Duckling: %s' % str(duckling_result))
         return self._parse_result(duckling_result)
 
     def _parse_reference_time(self, reference_time):

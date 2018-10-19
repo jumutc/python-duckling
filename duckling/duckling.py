@@ -157,6 +157,8 @@ class Duckling(object):
         else:
             duckling_result = duckling_parse.invoke(
                 language, input_str, self.clojure.read(filter_str))
+
+        print('Duckling: %s' % str(duckling_result))
         return self._parse_result(duckling_result)
 
     def _parse_reference_time(self, reference_time):

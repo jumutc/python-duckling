@@ -159,7 +159,6 @@ class Duckling(object):
             duckling_result = duckling_parse.invoke(
                 language, input_str, self.clojure.read(filter_str))
 
-        logging.info('Duckling: %s' % str(duckling_result))
         return self._parse_result(duckling_result)
 
     def _parse_reference_time(self, reference_time):
@@ -190,6 +189,7 @@ class Duckling(object):
                 else:
                     entry[key] = _functions[key](field.getValue())
             result.append(entry)
+            logging.info('Duckling entry: %s' % entry)
         return result
 
     def _parse_dict(self, java_dict, dim=None):

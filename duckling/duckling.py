@@ -182,7 +182,6 @@ class Duckling(object):
         for duckling_entry in duckling_result.iterator():
             entry = {}
             for field in duckling_entry.iterator():
-                logging.info('Duckling key: %s' % field.getKey().toString())
                 key = field.getKey().toString()[1:]
                 if key == u'value':
                     entry[key] = self._parse_dict(
@@ -190,7 +189,7 @@ class Duckling(object):
                 else:
                     entry[key] = _functions[key](field.getValue())
             result.append(entry)
-
+            logging.info('Duckling entry: %s' % entry)
         return result
 
     def _parse_dict(self, java_dict, dim=None):

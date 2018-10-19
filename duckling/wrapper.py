@@ -33,7 +33,7 @@ class DucklingWrapper(object):
             parse_datetime=parse_datetime,
             minimum_heap_size=minimum_heap_size,
             maximum_heap_size=maximum_heap_size)
-        self.duckling.load()
+        self.duckling.load([Language.ENGLISH, Language.DUTCH, Language.FRENCH])
         self._dims = {
             Dim.TIME:           self._parse_time,
             Dim.TEMPERATURE:    self._parse_number_with_unit,

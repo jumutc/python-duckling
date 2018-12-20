@@ -42,7 +42,7 @@ setup(
         'duckling': [
             'jars/clj-time-0.8.0.jar',
             'jars/clojure-1.8.0.jar',
-            'jars/duckling-0.4.23.jar',
+            'jars/duckling-0.4.24.jar',
             'jars/joda-time-2.3.jar',
             'jars/lazymap-3.1.0.jar',
             'jars/plumbing-0.5.3.jar',
